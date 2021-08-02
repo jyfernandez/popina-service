@@ -1,0 +1,28 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Dish {
+  id: ID!
+  name: String!
+  description: String!
+  isAvailable: Boolean!
+  price: Float!
+  createdAt: String!
+  modifiedAt: String!
+}
+
+type Query {
+  dishes: [Dish!]!
+}
+
+type Mutation {
+  createDish(createDishInput: CreateDishInput!): Dish!
+}
+
+input CreateDishInput {
+  name: String!
+  description: String!
+  isAvailable: Boolean!
+  price: Float!
+}
