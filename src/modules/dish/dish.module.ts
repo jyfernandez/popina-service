@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { DishService } from './dish.service';
 import { DishResolver } from './dish.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Dish } from './dish.entity';
+import { Dish } from './model/dish.model';
 import { DishRepository } from './dish.repository';
 
 @Module({

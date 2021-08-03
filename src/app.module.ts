@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Dish } from './dish/dish.entity';
-import { DishModule } from './dish/dish.module';
+import { Dish } from './modules/dish/model/dish.model';
+import { DishModule } from './modules/dish/dish.module';
 
 @Module({
   imports: [
