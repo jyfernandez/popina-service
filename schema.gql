@@ -14,6 +14,7 @@ type Dish {
 
 type Query {
   dishes: [Dish!]!
+  dish(id: String!): Dish!
 }
 
 type Mutation {
