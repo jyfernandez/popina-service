@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateDishInput } from './dto/create-dish.input';
 import { Dish } from './model/dish.model';
 import { DishRepository } from './dish.repository';
+import { UpdateDishInput } from './dto/update-dish.input';
 
 @Injectable()
 export class DishService {
@@ -19,5 +20,8 @@ export class DishService {
 
   async createDish(createDishInput: CreateDishInput): Promise<Dish> {
     return await this.dishRepository.createDish(createDishInput);
+  }
+  async updateDish(updateDishInput: UpdateDishInput): Promise<Dish> {
+    return await this.dishRepository.updateDish(updateDishInput);
   }
 }

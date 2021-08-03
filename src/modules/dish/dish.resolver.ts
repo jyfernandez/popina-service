@@ -2,6 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateDishInput } from './dto/create-dish.input';
 import { DishService } from './dish.service';
 import { Dish } from './model/dish.model';
+import { UpdateDishInput } from './dto/update-dish.input';
 
 @Resolver((of) => Dish)
 export class DishResolver {
@@ -20,5 +21,9 @@ export class DishResolver {
   @Mutation((returns) => Dish)
   createDish(@Args('createDishInput') createDishInput: CreateDishInput) {
     return this.dishService.createDish(createDishInput);
+  }
+  @Mutation((returns) => Dish)
+  updateDish(@Args('updateDishInput') updateDishInput: UpdateDishInput) {
+    return this.dishService.updateDish(updateDishInput);
   }
 }

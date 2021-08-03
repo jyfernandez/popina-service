@@ -19,11 +19,19 @@ type Query {
 
 type Mutation {
   createDish(createDishInput: CreateDishInput!): Dish!
+  updateDish(updateDishInput: UpdateDishInput!): Dish!
 }
 
 input CreateDishInput {
   name: String!
   description: String!
   isAvailable: Boolean!
+  price: Float!
+}
+
+input UpdateDishInput {
+  id: String!
+  name: String!
+  description: String!
   price: Float!
 }
