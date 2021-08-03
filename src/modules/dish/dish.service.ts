@@ -11,17 +11,20 @@ export class DishService {
     @InjectRepository(DishRepository)
     private dishRepository: DishRepository,
   ) {}
-  async getDishes(): Promise<Dish[]> {
+  public async getDishes(): Promise<Dish[]> {
     return await this.dishRepository.find();
   }
-  async getDish(id: string): Promise<Dish> {
+  public async getDish(id: string): Promise<Dish> {
     return await this.dishRepository.getDishById(id);
   }
 
-  async createDish(createDishInput: CreateDishInput): Promise<Dish> {
+  public async createDish(createDishInput: CreateDishInput): Promise<Dish> {
     return await this.dishRepository.createDish(createDishInput);
   }
-  async updateDish(updateDishInput: UpdateDishInput): Promise<Dish> {
+  public async updateDish(updateDishInput: UpdateDishInput): Promise<Dish> {
     return await this.dishRepository.updateDish(updateDishInput);
+  }
+  public async deleteDish(id: string): Promise<void> {
+    return await this.dishRepository.deleteDish(id);
   }
 }

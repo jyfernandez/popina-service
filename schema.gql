@@ -20,6 +20,7 @@ type Query {
 type Mutation {
   createDish(createDishInput: CreateDishInput!): Dish!
   updateDish(updateDishInput: UpdateDishInput!): Dish!
+  deleteDish(id: String!): ID!
 }
 
 input CreateDishInput {

@@ -40,4 +40,10 @@ export class DishRepository extends Repository<Dish> {
 
     return await this.save(dish);
   }
+  async deleteDish(id: string): Promise<void> {
+    const result = await this.delete({ id });
+    if (result.affected === 0) {
+      throw new NotFoundException(`Dish with ID ${id} not found`);
+    }
+  }
 }

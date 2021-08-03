@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateDishInput } from './dto/create-dish.input';
 import { DishService } from './dish.service';
 import { Dish } from './model/dish.model';
@@ -9,21 +9,26 @@ export class DishResolver {
   constructor(private dishService: DishService) {}
 
   @Query((returns) => [Dish])
-  dishes() {
-    return this.dishService.getDishes();
+  async dishes() {
+    return await this.dishService.getDishes();
   }
 
   @Query((returns) => Dish)
-  dish(@Args('id') id: string) {
-    return this.dishService.getDish(id);
+  async dish(@Args('id') id: string) {
+    return await this.dishService.getDish(id);
   }
 
   @Mutation((returns) => Dish)
-  createDish(@Args('createDishInput') createDishInput: CreateDishInput) {
-    return this.dishService.createDish(createDishInput);
+  async createDish(@Args('createDishInput') createDishInput: CreateDishInput) {
+    return await this.dishService.createDish(createDishInput);
   }
   @Mutation((returns) => Dish)
-  updateDish(@Args('updateDishInput') updateDishInput: UpdateDishInput) {
-    return this.dishService.updateDish(updateDishInput);
+  async updateDish(@Args('updateDishInput') updateDishInput: UpdateDishInput) {
+    return await this.dishService.updateDish(updateDishInput);
+  }
+  @Mutation((returns) => ID)
+  async deleteDish(@Args('id') id: string) {
+    await this.dishService.deleteDish(id);
+    return id;
   }
 }
