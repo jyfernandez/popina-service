@@ -3,6 +3,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Dish } from './modules/dish/model/dish.model';
 import { DishModule } from './modules/dish/dish.module';
+import { OrderModule } from './modules/order/order.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { DishModule } from './modules/dish/dish.module';
       autoSchemaFile: 'schema.gql',
     }),
     DishModule,
+    OrderModule,
   ],
 })
 export class AppModule {}
