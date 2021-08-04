@@ -12,9 +12,18 @@ type Dish {
   modifiedAt: String!
 }
 
+type Order {
+  id: ID!
+  dish: [Dish!]!
+  total: Float!
+  createdAt: String!
+  modifiedAt: String!
+}
+
 type Query {
   dishes: [Dish!]!
   dish(id: String!): Dish!
+  orders: [Order!]!
 }
 
 type Mutation {

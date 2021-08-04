@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Dish } from './modules/dish/model/dish.model';
 import { DishModule } from './modules/dish/dish.module';
 import { OrderModule } from './modules/order/order.module';
+import { Order } from './modules/order/model/order.model';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { OrderModule } from './modules/order/order.module';
       url: 'mongodb://localhost/popina',
       synchronize: true,
       useUnifiedTopology: true,
-      entities: [Dish],
+      entities: [Dish, Order],
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
