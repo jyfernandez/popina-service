@@ -3,6 +3,8 @@ import { CreateDishInput } from './dto/create-dish.input';
 import { DishService } from './dish.service';
 import { Dish } from './model/dish.model';
 import { UpdateDishInput } from './dto/update-dish.input';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/common/guards/auth.guard';
 
 @Resolver((of) => Dish)
 export class DishResolver {
@@ -26,6 +28,7 @@ export class DishResolver {
   async updateDish(@Args('updateDishInput') updateDishInput: UpdateDishInput) {
     return await this.dishService.updateDish(updateDishInput);
   }
+  @UseGuards(AuthGuard)
   @Mutation((returns) => ID)
   async deleteDish(@Args('id') id: string) {
     await this.dishService.deleteDish(id);
