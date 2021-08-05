@@ -14,6 +14,9 @@ export class DishService {
   public async getDishes(): Promise<Dish[]> {
     return await this.dishRepository.find();
   }
+  public async getAvailableDishes(): Promise<Dish[]> {
+    return await this.dishRepository.find({ isAvailable: true });
+  }
   public async getDish(id: string): Promise<Dish> {
     return await this.dishRepository.getDishById(id);
   }
@@ -26,5 +29,9 @@ export class DishService {
   }
   public async deleteDish(id: string): Promise<void> {
     return await this.dishRepository.deleteDish(id);
+  }
+
+  public async getManyDishes(dishIds: string[]): Promise<Dish[]> {
+    return await this.dishRepository.getManyDishes(dishIds);
   }
 }

@@ -10,7 +10,7 @@ export class DishRepository extends Repository<Dish> {
   async getDishById(id: string): Promise<Dish> {
     const dish = await this.findOne({ id });
     if (!dish) {
-      throw new NotFoundException('Dish does not exist.');
+      throw new NotFoundException(`Dish with ID ${id} not found`);
     }
     return dish;
   }
@@ -45,5 +45,15 @@ export class DishRepository extends Repository<Dish> {
     if (result.affected === 0) {
       throw new NotFoundException(`Dish with ID ${id} not found`);
     }
+  }
+
+  async getManyDishes(dishIds: string[]): Promise<Dish[]> {
+    return await this.find({
+      where: {
+        id: {
+          $in: dishIds,
+        },
+      },
+    });
   }
 }

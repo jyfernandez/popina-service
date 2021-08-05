@@ -22,6 +22,10 @@ export class Order {
 
   @Field()
   @Column()
+  remarks: string;
+
+  @Field()
+  @Column()
   createdAt: string;
 
   @Field()

@@ -16,12 +16,14 @@ type Order {
   id: ID!
   dish: [Dish!]!
   total: Float!
+  remarks: String!
   createdAt: String!
   modifiedAt: String!
 }
 
 type Query {
   dishes: [Dish!]!
+  avaliableDishes: [Dish!]!
   dish(id: String!): Dish!
   orders: [Order!]!
 }
@@ -30,6 +32,7 @@ type Mutation {
   createDish(createDishInput: CreateDishInput!): Dish!
   updateDish(updateDishInput: UpdateDishInput!): Dish!
   deleteDish(id: String!): ID!
+  createOrder(createOrderInput: CreateOrderInput!): Order!
 }
 
 input CreateDishInput {
@@ -44,4 +47,9 @@ input UpdateDishInput {
   name: String!
   description: String!
   price: Float!
+}
+
+input CreateOrderInput {
+  dishIds: [ID!]!
+  remarks: String!
 }

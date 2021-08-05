@@ -14,6 +14,10 @@ export class DishResolver {
   async dishes() {
     return await this.dishService.getDishes();
   }
+  @Query((returns) => [Dish])
+  async avaliableDishes() {
+    return await this.dishService.getAvailableDishes();
+  }
 
   @Query((returns) => Dish)
   async dish(@Args('id') id: string) {
@@ -24,6 +28,7 @@ export class DishResolver {
   async createDish(@Args('createDishInput') createDishInput: CreateDishInput) {
     return await this.dishService.createDish(createDishInput);
   }
+  @UseGuards(AuthGuard)
   @Mutation((returns) => Dish)
   async updateDish(@Args('updateDishInput') updateDishInput: UpdateDishInput) {
     return await this.dishService.updateDish(updateDishInput);

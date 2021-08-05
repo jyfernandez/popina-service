@@ -8,5 +8,6 @@ import { DishRepository } from './dish.repository';
 @Module({
   imports: [TypeOrmModule.forFeature([Dish, DishRepository])],
   providers: [DishService, DishResolver],
+  exports: [DishService],
 })
 export class DishModule {}
