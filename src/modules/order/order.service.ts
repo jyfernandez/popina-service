@@ -19,6 +19,9 @@ export class OrderService {
   public async getOrders(): Promise<Order[]> {
     return await this.orderRepository.find();
   }
+  public async getOrder(id: string): Promise<Order> {
+    return await this.orderRepository.getOrderById(id);
+  }
   public async createOrder(createOrderInput: CreateOrderInput): Promise<Order> {
     const { dishIds, remarks } = createOrderInput;
     const dishes = [];

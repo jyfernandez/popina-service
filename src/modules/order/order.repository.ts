@@ -19,4 +19,7 @@ export class OrderRepository extends Repository<Order> {
     });
     return await this.save(order);
   }
+  async getOrderById(id: string): Promise<Order> {
+    return await this.findOne({ id });
+  }
 }

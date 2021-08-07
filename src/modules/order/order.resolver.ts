@@ -22,6 +22,10 @@ export class OrderResolver {
   async orders() {
     return await this.orderService.getOrders();
   }
+  @Query((returns) => Order)
+  async order(id: string) {
+    return await this.orderService.getOrder(id);
+  }
 
   @Mutation((returns) => Order)
   async createOrder(
