@@ -8,6 +8,7 @@ import {
 } from '@nestjs/graphql';
 import { DishService } from '../dish/dish.service';
 import { CreateOrderInput } from './dto/create-order.input';
+import { UpdatedOrderInput } from './dto/update-order.input';
 import { Order } from './model/order.model';
 import { OrderService } from './order.service';
 
@@ -32,6 +33,12 @@ export class OrderResolver {
     @Args('createOrderInput') createOrderInput: CreateOrderInput,
   ) {
     return await this.orderService.createOrder(createOrderInput);
+  }
+  @Mutation((returns) => Order)
+  async updateOrder(
+    @Args('updateOrderInput') updateOrderInput: UpdatedOrderInput,
+  ) {
+    return await this.orderService.updateOrder(updateOrderInput);
   }
   @ResolveField()
   async dish(@Parent() order: Order) {

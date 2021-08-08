@@ -33,4 +33,24 @@ export class OrderService {
     const total = dishes.reduce((total, dish) => total + dish.price, 0);
     return await this.orderRepository.createOrder(createOrderInput, total);
   }
+  public async updateOrder(updateOrderInput: UpdateOrderInput): Promise<Order> {
+    const { id, dishIds, remarks } = updateOrderInput;
+
+    const order = await this.getOrder(id);
+    const total = await this.getOrderTotal(dishIds);
+    return await this.orderRepository.updateOrder(
+      order,
+      updateOrderInput,
+      total,
+    );
+  }
+  public async getOrderTotal(dishIds: string[]): Promise<number> {
+    const dishes = [];
+    for (let i = 0; i < dishIds.length; i++) {
+      const dish = await this.dishService.getDish(dishIds[i]);
+      dishes.push(dish);
+    }
+    const total = dishes.reduce((total, dish) => total + dish.price, 0);
+    return total;
+  }
 }

@@ -2,6 +2,7 @@ import { EntityRepository, Repository } from 'typeorm';
 import { CreateOrderInput } from './dto/create-order.input';
 import { Order } from './model/order.model';
 import { v4 as uuid } from 'uuid';
+import { UpdatedOrderInput } from './dto/update-order.input';
 @EntityRepository(Order)
 export class OrderRepository extends Repository<Order> {
   async createOrder(
@@ -17,6 +18,18 @@ export class OrderRepository extends Repository<Order> {
       createdAt: new Date().toISOString(),
       modifiedAt: new Date().toISOString(),
     });
+    return await this.save(order);
+  }
+  async updateOrder(
+    order: Order,
+    updateOrderInput: UpdatedOrderInput,
+    total: number,
+  ): Promise<Order> {
+    const { dishIds, remarks } = updateOrderInput;
+    order.dish = dishIds;
+    order.total = total;
+    order.remarks = remarks;
+    order.modifiedAt = new Date().toISOString();
     return await this.save(order);
   }
   async getOrderById(id: string): Promise<Order> {
