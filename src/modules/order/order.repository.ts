@@ -3,6 +3,7 @@ import { CreateOrderInput } from './dto/create-order.input';
 import { Order } from './model/order.model';
 import { v4 as uuid } from 'uuid';
 import { UpdatedOrderInput } from './dto/update-order.input';
+import { NotFoundException } from '@nestjs/common';
 @EntityRepository(Order)
 export class OrderRepository extends Repository<Order> {
   async createOrder(
@@ -34,5 +35,11 @@ export class OrderRepository extends Repository<Order> {
   }
   async getOrderById(id: string): Promise<Order> {
     return await this.findOne({ id });
+  }
+  async deleteOrder(id: string): Promise<void> {
+    const result = await this.delete({ id });
+    if (result.affected === 0) {
+      throw new NotFoundException(`Order with ID ${id} not found`);
+    }
   }
 }
