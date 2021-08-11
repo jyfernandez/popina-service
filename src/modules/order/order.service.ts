@@ -53,4 +53,7 @@ export class OrderService {
     const total = dishes.reduce((total, dish) => total + dish.price, 0);
     return total;
   }
+  public async deleteOrder(id: string): Promise<void> {
+    return await this.orderRepository.deleteOrder(id);
+  }
 }
