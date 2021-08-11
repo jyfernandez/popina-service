@@ -1,11 +1,14 @@
+import { UseGuards } from '@nestjs/common';
 import {
   Args,
+  ID,
   Mutation,
   Parent,
   Query,
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
+import { AuthGuard } from 'src/common/guards/auth.guard';
 import { DishService } from '../dish/dish.service';
 import { CreateOrderInput } from './dto/create-order.input';
 import { UpdatedOrderInput } from './dto/update-order.input';
@@ -39,6 +42,12 @@ export class OrderResolver {
     @Args('updateOrderInput') updateOrderInput: UpdatedOrderInput,
   ) {
     return await this.orderService.updateOrder(updateOrderInput);
+  }
+  @UseGuards(AuthGuard)
+  @Mutation((returns) => ID)
+  async deleteOrder(@Args('id') id: string) {
+    await this.orderService.deleteOrder(id);
+    return id;
   }
   @ResolveField()
   async dish(@Parent() order: Order) {
