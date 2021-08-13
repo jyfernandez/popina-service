@@ -1,11 +1,8 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DishService } from '../dish/dish.service';
 import { CreateOrderInput } from './dto/create-order.input';
+import { UpdatedOrderInput } from './dto/update-order.input';
 import { Order } from './model/order.model';
 import { OrderRepository } from './order.repository';
 
@@ -23,7 +20,7 @@ export class OrderService {
     return await this.orderRepository.getOrderById(id);
   }
   public async createOrder(createOrderInput: CreateOrderInput): Promise<Order> {
-    const { dishIds, remarks } = createOrderInput;
+    const { dishIds } = createOrderInput;
     const dishes = [];
 
     for (let i = 0; i < dishIds.length; i++) {
@@ -33,8 +30,10 @@ export class OrderService {
     const total = dishes.reduce((total, dish) => total + dish.price, 0);
     return await this.orderRepository.createOrder(createOrderInput, total);
   }
-  public async updateOrder(updateOrderInput: UpdateOrderInput): Promise<Order> {
-    const { id, dishIds, remarks } = updateOrderInput;
+  public async updateOrder(
+    updateOrderInput: UpdatedOrderInput,
+  ): Promise<Order> {
+    const { id, dishIds } = updateOrderInput;
 
     const order = await this.getOrder(id);
     const total = await this.getOrderTotal(dishIds);
