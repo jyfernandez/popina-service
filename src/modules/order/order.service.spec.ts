@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { DishModule } from '../dish/dish.module';
 import { OrderRepository } from './order.repository';
 import { OrderService } from './order.service';
 
@@ -10,6 +11,7 @@ describe('OrderService', () => {
   let orderRepository;
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [DishModule],
       providers: [
         OrderService,
         {
