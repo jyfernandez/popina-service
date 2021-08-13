@@ -4,7 +4,7 @@ import { DishService } from './dish.service';
 import { Dish } from './model/dish.model';
 import { UpdateDishInput } from './dto/update-dish.input';
 import { UseGuards } from '@nestjs/common';
-import { AuthGuard } from 'src/common/guards/auth.guard';
+import { AuthGuard } from '../../common/guards/auth.guard';
 
 @Resolver((of) => Dish)
 export class DishResolver {

@@ -8,7 +8,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { AuthGuard } from 'src/common/guards/auth.guard';
+import { AuthGuard } from '../../common/guards/auth.guard';
 import { DishService } from '../dish/dish.service';
 import { CreateOrderInput } from './dto/create-order.input';
 import { UpdatedOrderInput } from './dto/update-order.input';
