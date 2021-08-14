@@ -7,13 +7,21 @@ import { OrderService } from './order.service';
 const mockOrderRepository = () => ({
   getOrderById: jest.fn(),
   find: jest.fn(),
+  createOrder: jest.fn(),
 });
-const mockDishRepository = () => ({});
-const mockDishService = () => ({});
+const mockDishRepository = () => ({
+  getDishById: jest.fn(),
+});
+const mockDishService = () => ({
+  getDish: jest.fn(),
+});
 
 describe('OrderService', () => {
   let orderService: OrderService;
   let orderRepository;
+  let dishService;
+  let dishRepository;
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -35,6 +43,8 @@ describe('OrderService', () => {
 
     orderService = module.get<OrderService>(OrderService);
     orderRepository = module.get<OrderRepository>(OrderRepository);
+    dishService = module.get<DishService>(DishService);
+    dishRepository = module.get<DishRepository>(DishRepository);
   });
   describe('getOrders', () => {
     it('calls orderRepository.getOrders and returns the result', async () => {
@@ -62,6 +72,29 @@ describe('OrderService', () => {
       orderRepository.getOrderById.mockResolvedValue(mockValue);
       const result = await orderService.getOrder('1234567890');
       expect(result).toEqual(mockValue);
+    });
+  });
+  describe('createOrder', () => {
+    it('calls orderRepository.createOrder and returns the result', async () => {
+      const orderMockValue = {
+        id: '1234567890',
+        dish: ['12345678'],
+        total: 1,
+        remarks: 'Nice',
+      };
+      const dishMockValue = {
+        id: '1234567890',
+        name: 'Spag',
+        price: 1,
+      };
+      orderRepository.createOrder.mockResolvedValue(orderMockValue);
+      dishRepository.getDishById.mockResolvedValue(dishMockValue);
+      dishService.getDish.mockResolvedValue(dishMockValue);
+      const result = await orderService.createOrder({
+        dishIds: ['1234567890'],
+        remarks: 'Nice',
+      });
+      expect(result).toEqual(orderMockValue);
     });
   });
 });
