@@ -5,7 +5,7 @@ import { OrderRepository } from './order.repository';
 import { OrderService } from './order.service';
 
 const mockOrderRepository = () => ({
-  getOrders: jest.fn(),
+  getOrderById: jest.fn(),
   find: jest.fn(),
 });
 const mockDishRepository = () => ({});
@@ -48,6 +48,19 @@ describe('OrderService', () => {
       ];
       orderRepository.find.mockResolvedValue(mockValue);
       const result = await orderService.getOrders();
+      expect(result).toEqual(mockValue);
+    });
+  });
+  describe('getOrder', () => {
+    it('calls orderRepository.getOrder and returns the result', async () => {
+      const mockValue = {
+        id: '1234567890',
+        dish: ['12345678'],
+        total: 1,
+        remarks: 'Nice',
+      };
+      orderRepository.getOrderById.mockResolvedValue(mockValue);
+      const result = await orderService.getOrder('1234567890');
       expect(result).toEqual(mockValue);
     });
   });
