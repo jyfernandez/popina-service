@@ -1,22 +1,34 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { DishModule } from '../dish/dish.module';
+import { DishRepository } from '../dish/dish.repository';
+import { DishService } from '../dish/dish.service';
 import { OrderRepository } from './order.repository';
 import { OrderService } from './order.service';
 
 const mockOrderRepository = () => ({
   getOrders: jest.fn(),
+  find: jest.fn(),
 });
+const mockDishRepository = () => ({});
+const mockDishService = () => ({});
+
 describe('OrderService', () => {
   let orderService: OrderService;
   let orderRepository;
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [DishModule],
       providers: [
         OrderService,
         {
+          provide: DishService,
+          useFactory: mockDishService,
+        },
+        {
           provide: OrderRepository,
           useFactory: mockOrderRepository,
+        },
+        {
+          provide: DishRepository,
+          useFactory: mockDishRepository,
         },
       ],
     }).compile();
@@ -34,7 +46,7 @@ describe('OrderService', () => {
           remarks: 'Nice',
         },
       ];
-      orderRepository.getOrders.mockResolvedValue(mockValue);
+      orderRepository.find.mockResolvedValue(mockValue);
       const result = await orderService.getOrders();
       expect(result).toEqual(mockValue);
     });
