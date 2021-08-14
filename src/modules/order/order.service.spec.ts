@@ -8,6 +8,7 @@ const mockOrderRepository = () => ({
   getOrderById: jest.fn(),
   find: jest.fn(),
   createOrder: jest.fn(),
+  updateOrder: jest.fn(),
 });
 const mockDishRepository = () => ({
   getDishById: jest.fn(),
@@ -91,6 +92,30 @@ describe('OrderService', () => {
       dishRepository.getDishById.mockResolvedValue(dishMockValue);
       dishService.getDish.mockResolvedValue(dishMockValue);
       const result = await orderService.createOrder({
+        dishIds: ['1234567890'],
+        remarks: 'Nice',
+      });
+      expect(result).toEqual(orderMockValue);
+    });
+  });
+  describe('updateOrder', () => {
+    it('calls orderRepository.updateOrder and returns the result', async () => {
+      const orderMockValue = {
+        id: '1234567890',
+        dish: ['12345678'],
+        total: 1,
+        remarks: 'Nice',
+      };
+      const dishMockValue = {
+        id: '1234567890',
+        name: 'Spag',
+        price: 1,
+      };
+      orderRepository.updateOrder.mockResolvedValue(orderMockValue);
+      dishRepository.getDishById.mockResolvedValue(dishMockValue);
+      dishService.getDish.mockResolvedValue(dishMockValue);
+      const result = await orderService.updateOrder({
+        id: '1234567890',
         dishIds: ['1234567890'],
         remarks: 'Nice',
       });
