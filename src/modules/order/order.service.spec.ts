@@ -9,6 +9,7 @@ const mockOrderRepository = () => ({
   find: jest.fn(),
   createOrder: jest.fn(),
   updateOrder: jest.fn(),
+  deleteOrder: jest.fn(),
 });
 const mockDishRepository = () => ({
   getDishById: jest.fn(),
@@ -120,6 +121,19 @@ describe('OrderService', () => {
         remarks: 'Nice',
       });
       expect(result).toEqual(orderMockValue);
+    });
+  });
+  describe('deleteOrder', () => {
+    it('calls orderRepository.deleteOrder and returns the result', async () => {
+      const mockValue = {
+        id: '1234567890',
+        dish: ['12345678'],
+        total: 1,
+        remarks: 'Nice',
+      };
+      orderRepository.deleteOrder.mockResolvedValue(mockValue);
+      const result = await orderService.deleteOrder('1234567890');
+      expect(result).toEqual(mockValue);
     });
   });
 });
